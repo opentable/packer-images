@@ -21,7 +21,7 @@ From there you can run packer: `packer build windows_2008_r2.json` which will bu
 
 
 ##Acknowledgements
-This repo began as a fork of the [packer-windows](https://github.com/joefitzgerald/packer-windows) project and it contintues to be a point of reference for our windows machines.
+This repo began as a fork of the [packer-windows](https://github.com/joefitzgerald/packer-windows) project and it continues to be a point of reference for our windows machines.
 We have also taken bits from the great [veewee templates](https://github.com/jedi4ever/veewee/tree/master/templates) which has many great community contributions.
 
 ##Limitations
