@@ -30,7 +30,34 @@
                 ["modifyvm", "{{.Name}}", "--memory", "2048"],
                 ["modifyvm", "{{.Name}}", "--cpus", "2"]
             ]
-        }
+        },
+        {
+          "type": "vmware-iso",
+          "iso_url": "../../iso/en_windows_server_2008_r2_standard_enterprise_datacenter_web_x64_dvd_x15-50365.iso",
+          "iso_checksum_type": "md5",
+          "iso_checksum": "0ffbae83327f0ad8c2ab4d5dfa754c09",
+          "headless": false,
+          "boot_wait": "2m",
+          "ssh_username": "vagrant",
+          "ssh_password": "vagrant",
+          "ssh_wait_timeout": "2h",
+          "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
+          "guest_os_type": "windows7Server64Guest",
+          "tools_upload_flavor": "linux",
+          "disk_size": 61440,
+          "floppy_files": [
+              "./Autounattend.xml",
+              "../../scripts/install-cygwin-sshd.bat",
+              "../../scripts/enable-admin.bat",
+              "../../scripts/vagrant-ssh.bat",
+              "../../scripts/oracle-cert.cer",
+              "../../scripts/vagrant.pub"
+          ],
+          "vmx_data": {
+            "memsize": "2048",
+            "numvcpus": "2",
+            "cpuid.coresPerSocket": "1"
+          }
     ],
     "provisioners": [
         {

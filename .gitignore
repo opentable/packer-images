@@ -4,3 +4,5 @@
 *.iso
 *.img
 *.box
+**/output-virtualbox-iso/
+**/output-vmware-iso/
