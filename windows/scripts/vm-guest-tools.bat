@@ -5,7 +5,7 @@ if "%PROCESSOR_ARCHITECTURE%"=="AMD64" (
     )
     msiexec /qb /i C:\Windows\Temp\7z920-x64.msi
 ) else (
-    if not exist "C:\Windows\Temp\7z920-x64.msi" (
+    if not exist "C:\Windows\Temp\7z920.msi" (
          C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -Command "(New-Object System.Net.WebClient).DownloadFile('http://downloads.sourceforge.net/sevenzip/7z920.msi', 'C:\Windows\Temp\7z920.msi')" <NUL
     )
     msiexec /qb /i C:\Windows\Temp\7z920.msi
@@ -41,7 +41,7 @@ goto :done
 :: to prevent user intervention popups which will undermine a silent installation.
 cmd /c certutil -addstore -f "TrustedPublisher" A:\oracle-cert.cer
 
-move /Y "C:\VBoxGuestAdditions.iso" C:\Windows\Temp
+move /Y "C:\Users\vagrant\VBoxGuestAdditions.iso" C:\Windows\Temp
 
 cmd /c ""C:\Program Files\7-Zip\7z.exe" x C:\Windows\Temp\VBoxGuestAdditions.iso -oC:\Windows\Temp\virtualbox"
 cmd /c C:\Windows\Temp\virtualbox\VBoxWindowsAdditions.exe /S
