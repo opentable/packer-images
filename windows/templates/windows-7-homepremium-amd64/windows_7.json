@@ -19,7 +19,6 @@
                 "../../scripts/runonce.bat",
                 "../../scripts/ps.bat",
                 "../../scripts/downloadFile.vbs",
-                "../../scripts/powershell2.ps1",
                 "../../scripts/install-cygwin-sshd.bat",
                 "../../scripts/enable-admin.bat",
                 "../../scripts/vagrant-ssh.bat",
@@ -30,6 +29,37 @@
                 ["modifyvm", "{{.Name}}", "--memory", "2048"],
                 ["modifyvm", "{{.Name}}", "--cpus", "2"]
             ]
+        },
+        {
+          "type": "vmware-iso",
+          "iso_url": "../../iso/7600.16385.090713-1255_x64fre_enterprise_en-us_EVAL_Eval_Enterprise-GRMCENXEVAL_EN_DVD.iso",
+          "iso_checksum_type": "md5",
+          "iso_checksum": "1d0d239a252cb53e466d39e752b17c28",
+          "headless": false,
+          "boot_wait": "2m",
+          "ssh_username": "vagrant",
+          "ssh_password": "vagrant",
+          "ssh_wait_timeout": "2h",
+          "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
+          "tools_upload_flavor": "linux",
+          "disk_size": 61440,
+          "floppy_files": [
+              "./Autounattend.xml",
+              "../../scripts/runonce.bat",
+              "../../scripts/ps.bat",
+              "../../scripts/downloadFile.vbs",
+              "../../scripts/install-cygwin-sshd.bat",
+              "../../scripts/enable-admin.bat",
+              "../../scripts/set_work_network.ps1",
+              "../../scripts/vagrant-ssh.bat",
+              "../../scripts/vagrant.pub",
+              "../../scripts/oracle-cert.cer"
+          ],
+          "vmx_data": {
+            "memsize": "2048",
+            "numvcpus": "2",
+            "cpuid.coresPerSocket": "1"
+          }
         }
     ],
     "provisioners": [

@@ -155,8 +155,8 @@
           <Description>Install Powershell v2</Description>
         </SynchronousCommand>
         <SynchronousCommand wcm:action="add">
-          <CommandLine>cmd.exe /c C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -File a:\openssh.ps1</CommandLine>
-          <Description>Install OpenSSH</Description>
+          <CommandLine>cmd.exe /c a:\install-cygwin-sshd.bat</CommandLine>
+          <Description>Install Cygwin</Description>
           <Order>26</Order>
         </SynchronousCommand>
       </FirstLogonCommands>

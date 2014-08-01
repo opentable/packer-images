@@ -2,9 +2,9 @@
     "builders": [
         {
             "type": "virtualbox-iso",
-            "iso_url": "../../iso/en_windows_7_professional_x64_dvd_x15-65805.iso",
+            "iso_url": "../../iso/en_windows_7_ultimate_x86_dvd_x15-65921.iso",
             "iso_checksum_type": "md5",
-            "iso_checksum": "7b7af5fe3a01e9fd76de4dacb45a796b",
+            "iso_checksum": "d0b8b407e8a3d4b75ee9c10147266b89",
             "headless": false,
             "boot_wait": "2m",
             "ssh_username": "vagrant",
@@ -48,7 +48,7 @@
         {
             "type": "vagrant",
             "keep_input_artifact": false,
-            "output": "windows-7-professional-amd64-{{.Provider}}.box",
+            "output": "windows-7-ultimate-amd64-{{.Provider}}.box",
             "vagrantfile_template": "vagrantfile-windows_7.template"
         }
     ]

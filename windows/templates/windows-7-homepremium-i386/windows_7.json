@@ -2,9 +2,9 @@
     "builders": [
         {
             "type": "virtualbox-iso",
-            "iso_url": "../../iso/en_windows_7_professional_x64_dvd_x15-65805.iso",
+            "iso_url": "../../iso/en_windows_7_home_premium_x86_dvd_x15-65732.iso",
             "iso_checksum_type": "md5",
-            "iso_checksum": "7b7af5fe3a01e9fd76de4dacb45a796b",
+            "iso_checksum": "c58bc371c1ee56d0d1e3986d0a2c639e",
             "headless": false,
             "boot_wait": "2m",
             "ssh_username": "vagrant",
@@ -29,6 +29,37 @@
                 ["modifyvm", "{{.Name}}", "--memory", "2048"],
                 ["modifyvm", "{{.Name}}", "--cpus", "2"]
             ]
+        },
+        {
+          "type": "vmware-iso",
+          "iso_url": "../../iso/en_windows_7_home_premium_x86_dvd_x15-65732.iso",
+          "iso_checksum_type": "md5",
+          "iso_checksum": "c58bc371c1ee56d0d1e3986d0a2c639e",
+          "headless": false,
+          "boot_wait": "2m",
+          "ssh_username": "vagrant",
+          "ssh_password": "vagrant",
+          "ssh_wait_timeout": "2h",
+          "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
+          "tools_upload_flavor": "linux",
+          "disk_size": 61440,
+          "floppy_files": [
+              "./Autounattend.xml",
+              "../../scripts/runonce.bat",
+              "../../scripts/ps.bat",
+              "../../scripts/downloadFile.vbs",
+              "../../scripts/install-cygwin-sshd.bat",
+              "../../scripts/enable-admin.bat",
+              "../../scripts/set_work_network.ps1",
+              "../../scripts/vagrant-ssh.bat",
+              "../../scripts/vagrant.pub",
+              "../../scripts/oracle-cert.cer"
+          ],
+          "vmx_data": {
+            "memsize": "2048",
+            "numvcpus": "2",
+            "cpuid.coresPerSocket": "1"
+          }
         }
     ],
     "provisioners": [
@@ -48,7 +79,7 @@
         {
             "type": "vagrant",
             "keep_input_artifact": false,
-            "output": "windows-7-professional-amd64-{{.Provider}}.box",
+            "output": "windows-7-homepremium-amd64-{{.Provider}}.box",
             "vagrantfile_template": "vagrantfile-windows_7.template"
         }
     ]

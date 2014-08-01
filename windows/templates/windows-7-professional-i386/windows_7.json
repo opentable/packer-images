@@ -2,9 +2,9 @@
     "builders": [
         {
             "type": "virtualbox-iso",
-            "iso_url": "../../iso/en_windows_7_professional_x64_dvd_x15-65805.iso",
+            "iso_url": "../../iso/en_windows_7_professional_x86_dvd_x15-65804.iso",
             "iso_checksum_type": "md5",
-            "iso_checksum": "7b7af5fe3a01e9fd76de4dacb45a796b",
+            "iso_checksum": "d8f675aaeb48057452666b0cd686d7f5",
             "headless": false,
             "boot_wait": "2m",
             "ssh_username": "vagrant",

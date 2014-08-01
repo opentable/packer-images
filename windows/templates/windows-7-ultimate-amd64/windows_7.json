@@ -19,7 +19,6 @@
                 "../../scripts/runonce.bat",
                 "../../scripts/ps.bat",
                 "../../scripts/downloadFile.vbs",
-                "../../scripts/powershell2.ps1",
                 "../../scripts/install-cygwin-sshd.bat",
                 "../../scripts/enable-admin.bat",
                 "../../scripts/vagrant-ssh.bat",
