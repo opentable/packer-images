@@ -1,0 +1,55 @@
+{
+    "builders": [
+        {
+            "type": "virtualbox-iso",
+            "iso_url": "../../iso/en_windows_8_x86_dvd_915417.iso",
+            "iso_checksum_type": "md5",
+            "iso_checksum": "4252407333706df89a0c654924dd3f06",
+            "headless": false,
+            "boot_wait": "2m",
+            "ssh_username": "vagrant",
+            "ssh_password": "vagrant",
+            "ssh_wait_timeout": "4h",
+            "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
+            "guest_os_type": "Windows8_64",
+            "guest_additions_path": "/cygdrive/c/Users/vagrant/VBoxGuestAdditions.iso",
+            "disk_size": 61440,
+            "floppy_files": [
+                "./Autounattend.xml",
+                "../../scripts/runonce.bat",
+                "../../scripts/ps.bat",
+                "../../scripts/downloadFile.vbs",
+                "../../scripts/install-cygwin-sshd.bat",
+                "../../scripts/enable-admin.bat",
+                "../../scripts/vagrant-ssh.bat",
+                "../../scripts/vagrant.pub",
+                "../../scripts/oracle-cert.cer"
+            ],
+            "vboxmanage": [
+                ["modifyvm", "{{.Name}}", "--memory", "2048"],
+                ["modifyvm", "{{.Name}}", "--cpus", "2"]
+            ]
+        }
+    ],
+    "provisioners": [
+        {
+            "type": "shell",
+            "remote_path": "/cygdrive/c/Users/vagrant/script.bat",
+            "execute_command": "{{ .Vars }} /cygdrive/c/Windows/system32/cmd.exe /c C:/Users/vagrant/script.bat",
+            "scripts": [
+                "../../scripts/vm-guest-tools.bat"
+            ]
+        }, {
+            "type": "shell",
+            "inline": ["rm -f /cygdrive/c/Users/vagrant/script.bat"]
+        }
+    ],
+    "post-processors": [
+        {
+            "type": "vagrant",
+            "keep_input_artifact": false,
+            "output": "windows-8-enterprise-amd64-{{.Provider}}.box",
+            "vagrantfile_template": "vagrantfile-windows_8.template"
+        }
+    ]
+}
