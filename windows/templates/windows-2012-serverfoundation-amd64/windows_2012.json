@@ -29,9 +29,9 @@
         },
         {
           "type": "vmware-iso",
-          "iso_url": "../../iso/en_windows_server_2008_r2_standard_enterprise_datacenter_web_x64_dvd_x15-50365.iso",
+          "iso_url": "../../iso/en_windows_server_2012_storage_server_and_foundation_x64_dvd_915793.iso",
           "iso_checksum_type": "md5",
-          "iso_checksum": "0ffbae83327f0ad8c2ab4d5dfa754c09",
+          "iso_checksum": "3292e623e5498ca2de0f7dee8f0b159c",
           "headless": false,
           "boot_wait": "2m",
           "ssh_username": "vagrant",
@@ -54,6 +54,7 @@
             "numvcpus": "2",
             "cpuid.coresPerSocket": "1"
           }
+        }
     ],
     "provisioners": [
         {

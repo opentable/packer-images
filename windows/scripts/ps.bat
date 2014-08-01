@@ -4,6 +4,7 @@ IF "%1%"=="win2008_64" (
    IF NOT EXIST "C:\Windows6.0-KB968930-x64.msu" (
      C:\Windows\System32\cscript.exe a:\downloadFile.vbs "http://download.microsoft.com/download/2/8/6/28686477-3242-4E96-9009-30B16BED89AF/Windows6.0-KB968930-x64.msu" "C:\Windows6.0-KB968930-x64.msu" 
      timeout 10 > null
+     ECHO "Installing Powershell 2.0"
      C:\Windows\System32\wusa.exe C:\Windows6.0-KB968930-x64.msu /quiet /norestart
    )
 ) ELSE IF "%1%"=="win2008" (
@@ -11,6 +12,7 @@ IF "%1%"=="win2008_64" (
   IF NOT EXIST "C:\Windows6.0-KB968930-x86.msu" (
     C:\Windows\System32\cscript.exe a:\downloadFile.vbs "http://download.microsoft.com/download/F/9/E/F9EF6ACB-2BA8-4845-9C10-85FC4A69B207/Windows6.0-KB968930-x86.msu" "C:\Windows6.0-KB968930-x86.msu"
     timeout 10 > null
+    ECHO "Installing Powershell 2.0"
     C:\Windows\System32\wusa.exe C:\Windows6.0-KB968930-x86.msu /quiet /norestart
   )
 )  ELSE IF "%1%"=="win2003_64" (

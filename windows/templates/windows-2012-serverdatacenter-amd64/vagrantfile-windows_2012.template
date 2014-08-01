@@ -1,5 +1,3 @@
-# -*- mode: ruby -*-
-# vi: set ft=ruby :
 
 current_version = Gem::Version.new(Vagrant::VERSION)
 windows_version = Gem::Version.new("1.6.0")
@@ -25,11 +23,10 @@ Vagrant.configure("2") do |config|
 
       # Port forward WinRM and RDP
       config.vm.network :forwarded_port, guest: 5985, host: 5985, id: "winrm", auto_correct: true
+      config.vm.network :forwarded_port, guest: 3389, host: 3389
     else
       config.vm.communicator = "winrm"
     end
-
-    config.vm.network :forwarded_port, guest: 3389, host: 3389
 
     config.vm.provider :virtualbox do |v, override|
         v.customize ["modifyvm", :id, "--memory", 2048]

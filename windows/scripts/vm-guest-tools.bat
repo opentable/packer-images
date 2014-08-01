@@ -5,7 +5,7 @@ if "%PROCESSOR_ARCHITECTURE%"=="AMD64" (
     )
     msiexec /qb /i C:\Windows\Temp\7z920-x64.msi
 ) else (
-    if not exist "C:\Windows\Temp\7z920-x64.msi" (
+    if not exist "C:\Windows\Temp\7z920.msi" (
          C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -Command "(New-Object System.Net.WebClient).DownloadFile('http://downloads.sourceforge.net/sevenzip/7z920.msi', 'C:\Windows\Temp\7z920.msi')" <NUL
     )
     msiexec /qb /i C:\Windows\Temp\7z920.msi

@@ -25,11 +25,11 @@ Vagrant.configure("2") do |config|
 
       # Port forward WinRM and RDP
       config.vm.network :forwarded_port, guest: 5985, host: 5985
+      config.vm.network :forwarded_port, guest: 3389, host: 3389
+      
     else
       config.vm.communicator = "winrm"
     end
-
-    config.vm.network :forwarded_port, guest: 3389, host: 3389
 
     config.vm.provider :virtualbox do |v, override|
         v.customize ["modifyvm", :id, "--memory", 2048]

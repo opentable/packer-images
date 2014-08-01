@@ -18,9 +18,8 @@
                 "../../scripts/runonce.bat",
                 "../../scripts/ps.bat",
                 "../../scripts/downloadFile.vbs",
-                "../../scripts/powershell2.ps1",
                 "../../scripts/win-updates.ps1",
-                "../../scripts/openssh.ps1",
+                "../../scripts/install-cygwin-sshd.bat",
                 "../../scripts/oracle-cert.cer"
             ],
             "vboxmanage": [
@@ -30,9 +29,9 @@
         },
         {
           "type": "vmware-iso",
-          "iso_url": "../../iso/en_windows_server_2008_r2_standard_enterprise_datacenter_web_x64_dvd_x15-50365.iso",
+          "iso_url": "../../iso/en_windows_server_2008_datacenter_enterprise_standard_x86_dvd_x14-26710.iso",
           "iso_checksum_type": "md5",
-          "iso_checksum": "0ffbae83327f0ad8c2ab4d5dfa754c09",
+          "iso_checksum": "0bfca49f0164de0a8eba236ced47007d",
           "headless": false,
           "boot_wait": "2m",
           "ssh_username": "vagrant",
@@ -43,39 +42,40 @@
           "tools_upload_flavor": "linux",
           "disk_size": 61440,
           "floppy_files": [
-              "./Autounattend.xml",
-              "../../scripts/install-cygwin-sshd.bat",
-              "../../scripts/enable-admin.bat",
-              "../../scripts/vagrant-ssh.bat",
-              "../../scripts/oracle-cert.cer",
-              "../../scripts/vagrant.pub"
+            "./Autounattend.xml",
+            "../../scripts/runonce.bat",
+            "../../scripts/ps.bat",
+            "../../scripts/downloadFile.vbs",
+            "../../scripts/win-updates.ps1",
+            "../../scripts/install-cygwin-sshd.bat",
+            "../../scripts/oracle-cert.cer"
           ],
           "vmx_data": {
             "memsize": "2048",
             "numvcpus": "2",
             "cpuid.coresPerSocket": "1"
           }
+        }
     ],
     "provisioners": [
-        {
-            "type": "shell",
-            "remote_path": "/tmp/script.bat",
-            "execute_command": "{{.Vars}} cmd /c C:/Windows/Temp/script.bat",
-            "scripts": [
-                "../../scripts/vm-guest-tools.bat",
-                "../../scripts/vagrant-ssh.bat"
-            ]
-        },
-        {
-            "type": "shell", "inline": ["rm -rf /tmp/*"]
-        }
+      {
+        "type": "shell",
+        "remote_path": "/cygdrive/c/Users/vagrant/script.bat",
+        "execute_command": "{{ .Vars }} /cygdrive/c/Windows/system32/cmd.exe /c C:/Users/vagrant/script.bat",
+        "scripts": [
+            "../../scripts/vm-guest-tools.bat"
+        ]
+      }, {
+        "type": "shell",
+        "inline": ["rm -f /cygdrive/c/Users/vagrant/script.bat"]
+      }
     ],
     "post-processors": [
         {
             "type": "vagrant",
             "keep_input_artifact": false,
-            "output": "windows-2008-serverstandard-i386_{{.Provider}}.box",
-            "vagrantfile_template": "vagrantfile-windows_7.template"
+            "output": "windows-2008-serverdatacenter-i386_{{.Provider}}.box",
+            "vagrantfile_template": "vagrantfile-windows_2008.template"
         }
     ]
 }

@@ -54,6 +54,7 @@
             "numvcpus": "2",
             "cpuid.coresPerSocket": "1"
           }
+        }
     ],
     "provisioners": [
         {

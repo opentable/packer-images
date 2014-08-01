@@ -19,7 +19,6 @@
                 "../../scripts/runonce.bat",
                 "../../scripts/ps.bat",
                 "../../scripts/downloadFile.vbs",
-                "../../scripts/powershell2.ps1",
                 "../../scripts/install-cygwin-sshd.bat",
                 "../../scripts/enable-admin.bat",
                 "../../scripts/vagrant-ssh.bat",
@@ -33,9 +32,9 @@
         },
         {
           "type": "vmware-iso",
-          "iso_url": "../../iso/en_windows_server_2008_r2_standard_enterprise_datacenter_web_x64_dvd_x15-50365.iso",
+          "iso_url": "../../iso/en_windows_server_2008_datacenter_enterprise_standard_x64_dvd_x14-26714.iso",
           "iso_checksum_type": "md5",
-          "iso_checksum": "0ffbae83327f0ad8c2ab4d5dfa754c09",
+          "iso_checksum": "27c58cdb3d620f28c36333a5552f271c",
           "headless": false,
           "boot_wait": "2m",
           "ssh_username": "vagrant",
@@ -47,17 +46,21 @@
           "disk_size": 61440,
           "floppy_files": [
               "./Autounattend.xml",
+              "../../scripts/runonce.bat",
+              "../../scripts/ps.bat",
+              "../../scripts/downloadFile.vbs",
               "../../scripts/install-cygwin-sshd.bat",
               "../../scripts/enable-admin.bat",
               "../../scripts/vagrant-ssh.bat",
-              "../../scripts/oracle-cert.cer",
-              "../../scripts/vagrant.pub"
+              "../../scripts/vagrant.pub",
+              "../../scripts/oracle-cert.cer"
           ],
           "vmx_data": {
             "memsize": "2048",
             "numvcpus": "2",
             "cpuid.coresPerSocket": "1"
           }
+        }
     ],
     "provisioners": [
         {
