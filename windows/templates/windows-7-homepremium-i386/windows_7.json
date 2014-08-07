@@ -79,7 +79,7 @@
         {
             "type": "vagrant",
             "keep_input_artifact": false,
-            "output": "windows-7-homepremium-amd64-{{.Provider}}.box",
+            "output": "windows-7-homepremium-i386-{{.Provider}}.box",
             "vagrantfile_template": "vagrantfile-windows_7.template"
         }
     ]

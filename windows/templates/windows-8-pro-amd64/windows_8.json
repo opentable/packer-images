@@ -48,7 +48,7 @@
         {
             "type": "vagrant",
             "keep_input_artifact": false,
-            "output": "windows-8-enterprise-amd64-{{.Provider}}.box",
+            "output": "windows-8-pro-amd64-{{.Provider}}.box",
             "vagrantfile_template": "vagrantfile-windows_8.template"
         }
     ]

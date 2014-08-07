@@ -48,7 +48,7 @@
         {
             "type": "vagrant",
             "keep_input_artifact": false,
-            "output": "windows-7-professional-amd64-{{.Provider}}.box",
+            "output": "windows-7-professional-i386-{{.Provider}}.box",
             "vagrantfile_template": "vagrantfile-windows_7.template"
         }
     ]
