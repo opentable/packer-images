@@ -2,6 +2,7 @@
 IF "%1%"=="win2008_64" (
    timeout 20 > null   
    IF NOT EXIST "C:\Windows6.0-KB968930-x64.msu" (
+     ECHO "Downloading Powershell 2.0"
      C:\Windows\System32\cscript.exe a:\downloadFile.vbs "http://download.microsoft.com/download/2/8/6/28686477-3242-4E96-9009-30B16BED89AF/Windows6.0-KB968930-x64.msu" "C:\Windows6.0-KB968930-x64.msu" 
      timeout 10 > null
      ECHO "Installing Powershell 2.0"
@@ -10,12 +11,31 @@ IF "%1%"=="win2008_64" (
 ) ELSE IF "%1%"=="win2008" (
   timeout 20 > null
   IF NOT EXIST "C:\Windows6.0-KB968930-x86.msu" (
+    ECHO "Downloading Powershell 2.0"
     C:\Windows\System32\cscript.exe a:\downloadFile.vbs "http://download.microsoft.com/download/F/9/E/F9EF6ACB-2BA8-4845-9C10-85FC4A69B207/Windows6.0-KB968930-x86.msu" "C:\Windows6.0-KB968930-x86.msu"
     timeout 10 > null
     ECHO "Installing Powershell 2.0"
     C:\Windows\System32\wusa.exe C:\Windows6.0-KB968930-x86.msu /quiet /norestart
   )
-)  ELSE IF "%1%"=="win2003_64" (
+) ELSE IF "%1%"=="winVista_64" (
+   timeout 20 > null
+   IF NOT EXIST "C:\Windows6.0-KB936330-X64-wave0.exe" (
+     ECHO "Downloading SP1"
+     C:\Windows\System32\cscript.exe a:\downloadFile.vbs "http://download.microsoft.com/download/8/3/b/83b8c814-b000-44a4-b667-8c1f58727b8b/Windows6.0-KB936330-X64-wave0.exe" "C:\Windows6.0-KB936330-X64-wave0.exe"
+     timeout 10 > null
+     ECHO "Installing SP1"
+     C:\Windows6.0-KB936330-X64-wave0.exe /quiet /norestart
+     timeout 20 > null
+   )
+   IF NOT EXIST "C:\Windows6.0-KB968930-x64.msu" (
+     ECHO "Downloading Powershell 2.0"
+     C:\Windows\System32\cscript.exe a:\downloadFile.vbs "http://download.microsoft.com/download/2/8/6/28686477-3242-4E96-9009-30B16BED89AF/Windows6.0-KB968930-x64.msu" "C:\Windows6.0-KB968930-x64.msu" 
+     timeout 10 > null
+     ECHO "Installing Powershell 2.0"
+     C:\Windows\System32\wusa.exe C:\Windows6.0-KB968930-x64.msu /quiet /norestart
+     timeout 20 > null
+   )
+) ELSE IF "%1%"=="win2003_64" (
 
    IF NOT EXIST "C:\WindowsServer2003.WindowsXP-KB914961-SP2-x64-ENU.exe" (
       ECHO "Downloading SP2"

@@ -1,12 +1,14 @@
+reg.exe query "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" /v PROCESSOR_ARCHITECTURE | find /i "AMD64"
+set BITNESS=%errorlevel%
 
-if "%PROCESSOR_ARCHITECTURE%"=="AMD64" (
+if %BITNESS% EQU 0 (
     if not exist "C:\Windows\Temp\7z920-x64.msi" (
-        C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -Command "(New-Object System.Net.WebClient).DownloadFile('http://downloads.sourceforge.net/sevenzip/7z920-x64.msi', 'C:\Windows\Temp\7z920-x64.msi')" <NUL
+      a:\downloadFile.vbs "http://heanet.dl.sourceforge.net/project/sevenzip/7-Zip/9.20/7z920-x64.msi" "C:\Windows\Temp\7z920-x64.msi"
     )
     msiexec /qb /i C:\Windows\Temp\7z920-x64.msi
 ) else (
     if not exist "C:\Windows\Temp\7z920.msi" (
-         C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -Command "(New-Object System.Net.WebClient).DownloadFile('http://downloads.sourceforge.net/sevenzip/7z920.msi', 'C:\Windows\Temp\7z920.msi')" <NUL
+      a:\downloadFile.vbs http://heanet.dl.sourceforge.net/project/sevenzip/7-Zip/9.20/7z920.msi" "C:\Windows\Temp\7z920.msi"
     )
     msiexec /qb /i C:\Windows\Temp\7z920.msi
 )
@@ -30,7 +32,7 @@ if not exist "C:\Windows\Temp\windows.iso" (
     rd /S /Q "C:\Program Files (x86)\VMWare"
 )
 
-cmd /c ""C:\Program Files\7-Zip\7z.exe" x "C:\Windows\Temp\windows.iso" -oC:\Windows\Temp\VMWare"
+cmd /c ""C:\Program Files\7-Zip\7z.exe" x -y "C:\Windows\Temp\windows.iso" -oC:\Windows\Temp\VMWare"
 cmd /c C:\Windows\Temp\VMWare\setup.exe /S /v"/qn REBOOT=R\"
 
 goto :done
@@ -49,7 +51,7 @@ goto :done
 
 :done
 
-if "%PROCESSOR_ARCHITECTURE%"=="AMD64" (
+if %BITNESS% EQU 0 (
     msiexec /qb /x C:\Windows\Temp\7z920-x64.msi
 ) else (
     msiexec /qb /x C:\Windows\Temp\7z920.msi
