@@ -253,7 +253,7 @@
                 <HelpCustomized>false</HelpCustomized>
             </OEMInformation>
             <!-- Rename computer here. -->
-            <ComputerName>vagrant-2008R2</ComputerName>
+            <ComputerName>win-2008R2-std</ComputerName>
             <TimeZone>Pacific Standard Time</TimeZone>
             <RegisteredOwner/>
         </component>

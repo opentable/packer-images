@@ -61,7 +61,7 @@
         {
             "type": "shell",
             "remote_path": "C:/Users/vagrant/script.bat",
-            "execute_command": "set PACKER_BUILDER_TYPE=virtualbox-iso & cmd.exe /c C:/Users/vagrant/script.bat",
+            "execute_command": "set PACKER_BUILDER_TYPE=virtualbox-iso& C:\\Users\\vagrant\\script.bat",
             "scripts": [
                 "../../scripts/vm-guest-tools.bat"
             ]
