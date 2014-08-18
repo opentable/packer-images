@@ -226,9 +226,15 @@
                     <Order>21</Order>
                     <Description>Disable Hibernation Mode</Description>
                 </SynchronousCommand>
-                <SynchronousCommand wcm:action="add">
+                <!--<SynchronousCommand wcm:action="add">
                     <CommandLine>cmd.exe /c a:\install-cygwin-sshd.bat</CommandLine>
                     <Description>Install Cygwin</Description>
+                    <Order>22</Order>
+                    <RequiresUserInput>true</RequiresUserInput>
+                </SynchronousCommand>-->
+                <SynchronousCommand wcm:action="add">
+                    <CommandLine>cmd.exe /c a:\bitvisessh.bat</CommandLine>
+                    <Description>Install Bitvise SSH Server</Description>
                     <Order>22</Order>
                     <RequiresUserInput>true</RequiresUserInput>
                 </SynchronousCommand>
@@ -247,7 +253,7 @@
                 <HelpCustomized>false</HelpCustomized>
             </OEMInformation>
             <!-- Rename computer here. -->
-            <ComputerName>vagrant-2008R2</ComputerName>
+            <ComputerName>win-2008R2-std</ComputerName>
             <TimeZone>Pacific Standard Time</TimeZone>
             <RegisteredOwner/>
         </component>
