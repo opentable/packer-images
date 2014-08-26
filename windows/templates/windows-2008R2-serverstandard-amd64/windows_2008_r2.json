@@ -43,12 +43,14 @@
           "tools_upload_flavor": "linux",
           "disk_size": 61440,
           "floppy_files": [
-              "./Autounattend.xml",
-              "../../scripts/install-cygwin-sshd.bat",
-              "../../scripts/enable-admin.bat",
-              "../../scripts/vagrant-ssh.bat",
-              "../../scripts/oracle-cert.cer",
-              "../../scripts/vagrant.pub"
+            "./Autounattend.xml",
+            "../../scripts/enable-admin.bat",
+            "../../scripts/vagrant-ssh.bat",
+            "../../scripts/oracle-cert.cer",
+            "../../scripts/vagrant.pub",
+            "../../scripts/downloadFile.vbs",
+            "../../scripts/bitvisessh.bat",
+            "../../scripts/BvSshServer-Settings.wst"
           ],
           "vmx_data": {
             "memsize": "2048",
@@ -64,7 +66,17 @@
             "execute_command": "set PACKER_BUILDER_TYPE=virtualbox-iso& C:\\Users\\vagrant\\script.bat",
             "scripts": [
                 "../../scripts/vm-guest-tools.bat"
-            ]
+            ],
+            "only": ["virtualbox-iso"]
+        },
+        {
+            "type": "shell",
+            "remote_path": "C:/Users/vagrant/script.bat",
+            "execute_command": "set PACKER_BUILDER_TYPE=vmware-iso& C:\\Users\\vagrant\\script.bat",
+            "scripts": [
+                "../../scripts/vm-guest-tools.bat"
+            ],
+            "only": ["vmware-iso"]
         }
     ],
     "post-processors": [
