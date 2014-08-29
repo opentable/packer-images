@@ -8,7 +8,7 @@ if %BITNESS% EQU 0 (
     msiexec /qb /i C:\Windows\Temp\7z920-x64.msi
 ) else (
     if not exist "C:\Windows\Temp\7z920.msi" (
-      a:\downloadFile.vbs http://heanet.dl.sourceforge.net/project/sevenzip/7-Zip/9.20/7z920.msi" "C:\Windows\Temp\7z920.msi"
+      a:\downloadFile.vbs "http://heanet.dl.sourceforge.net/project/sevenzip/7-Zip/9.20/7z920.msi" "C:\Windows\Temp\7z920.msi"
     )
     msiexec /qb /i C:\Windows\Temp\7z920.msi
 )
