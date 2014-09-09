@@ -27,10 +27,6 @@
         <WillShowUI>OnError</WillShowUI>
       </DiskConfiguration>
       <UserData>
-        <ProductKey>
-          <WillShowUI>OnError</WillShowUI>
-          <Key>6JXV6-Q6CHQ-F9TKQ-V93MW-MTCG4</Key>
-        </ProductKey>
         <AcceptEula>true</AcceptEula>
       </UserData>
       <ImageInstall>
@@ -44,7 +40,7 @@
           <InstallFrom>
             <MetaData wcm:action="add">
               <Key>/IMAGE/NAME</Key>
-              <Value>Windows Vista HOMEBASIC</Value>
+              <Value>Windows Vista BUSINESS</Value>
             </MetaData>
           </InstallFrom>
         </OSImage>
@@ -243,5 +239,5 @@
       <RegisteredOwner></RegisteredOwner>
     </component>
   </settings>
-  <cpi:offlineImage cpi:source="wim:d:/sources/install.wim#Windows Vista HOMEBASIC" xmlns:cpi="urn:schemas-microsoft-com:cpi" />
+  <cpi:offlineImage cpi:source="wim:d:/sources/install.wim#Windows Vista BUSINESS" xmlns:cpi="urn:schemas-microsoft-com:cpi" />
 </unattend>

@@ -2,9 +2,9 @@
     "builders": [
         {
             "type": "virtualbox-iso",
-            "iso_url": "../../iso/en_windows_vista_x64_dvd_x12-40712.iso",
+            "iso_url": "../../iso/en_windows_vista_enterprise_x64_dvd_vl_x13-17316.iso",
             "iso_checksum_type": "md5",
-            "iso_checksum": "11e2010d857fffc47813295e6be6d58d",
+            "iso_checksum": "ad2a9d0b89f7cc05d966594732016d35",
             "headless": false,
             "boot_wait": "2m",
             "ssh_username": "vagrant",
@@ -35,9 +35,9 @@
         },
         {
           "type": "vmware-iso",
-          "iso_url": "../../iso/en_windows_vista_x64_dvd_x12-40712.iso",
+          "iso_url": "../../iso/en_windows_vista_enterprise_x64_dvd_vl_x13-17316.iso",
           "iso_checksum_type": "md5",
-          "iso_checksum": "11e2010d857fffc47813295e6be6d58d",
+          "iso_checksum": "ad2a9d0b89f7cc05d966594732016d35",
           "headless": false,
           "boot_wait": "2m",
           "ssh_username": "Administrator",
@@ -75,7 +75,7 @@
         {
             "type": "vagrant",
             "keep_input_artifact": false,
-            "output": "windows-vista-homebasic-amd64-{{.Provider}}.box",
+            "output": "windows-vista-enterprise-amd64-{{.Provider}}.box",
             "vagrantfile_template": "vagrantfile-windows_vista.template"
         }
     ]
