@@ -154,6 +154,11 @@
           <Description>Install Cygwin</Description>
           <Order>26</Order>
         </SynchronousCommand>
+        <SynchronousCommand wcm:action="add">
+          <CommandLine>A:\vm-guest-tools.bat</CommandLine>
+          <Description>Install Guest Tools</Description>
+          <Order>27</Order>
+        </SynchronousCommand>
       </FirstLogonCommands>
       <ShowWindowsLive>false</ShowWindowsLive>
     </component>

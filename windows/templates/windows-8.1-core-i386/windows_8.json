@@ -23,26 +23,52 @@
                 "../../scripts/enable-admin.bat",
                 "../../scripts/vagrant-ssh.bat",
                 "../../scripts/vagrant.pub",
-                "../../scripts/oracle-cert.cer"
+                "../../scripts/oracle-cert.cer",
+                "../../scripts/vm-guest-tools.bat"
             ],
             "vboxmanage": [
                 ["modifyvm", "{{.Name}}", "--memory", "2048"],
                 ["modifyvm", "{{.Name}}", "--cpus", "2"],
-                ["setextradata", "{{.Name}}", "VBoxInternal/CPUM/CMPXCHG16B", "1"]
+                ["setextradata", "{{.Name}}", "VBoxInternal/CPUM/CMPXCHG16B", "1"],
+                ["storageattach", "{{.Name}}", "--storagectl", "IDE Controller", "--port", "1", "--device", "0", "--type", "dvddrive", "--medium", "/Applications/VirtualBox.app/Contents/MacOS/VBoxGuestAdditions.iso"]
             ]
-        }
-    ],
-    "provisioners": [
+        },
         {
-            "type": "shell",
-            "remote_path": "/cygdrive/c/Users/vagrant/script.bat",
-            "execute_command": "{{ .Vars }} /cygdrive/c/Windows/system32/cmd.exe /c C:/Users/vagrant/script.bat",
-            "scripts": [
-                "../../scripts/vm-guest-tools.bat"
-            ]
-        }, {
-            "type": "shell",
-            "inline": ["rm -f /cygdrive/c/Users/vagrant/script.bat"]
+          "type": "vmware-iso",
+          "iso_url": "../../iso/en_windows_8_1_x86_dvd_2707392.iso",
+          "iso_checksum_type": "md5",
+          "iso_checksum": "7dd36fea0d004acfedbdb3a5521ef5ff",
+          "headless": false,
+          "boot_wait": "2m",
+          "ssh_username": "vagrant",
+          "ssh_password": "vagrant",
+          "ssh_wait_timeout": "2h",
+          "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
+          "guest_os_type": "windows8-64",
+          "tools_upload_flavor": "windows",
+          "disk_size": 61440,
+          "floppy_files": [
+              "./Autounattend.xml",
+              "../../scripts/runonce.bat",
+              "../../scripts/ps.bat",
+              "../../scripts/downloadFile.vbs",
+              "../../scripts/install-cygwin-sshd.bat",
+              "../../scripts/enable-admin.bat",
+              "../../scripts/set_work_network.ps1",
+              "../../scripts/vagrant-ssh.bat",
+              "../../scripts/vagrant.pub",
+              "../../scripts/oracle-cert.cer",
+              "../../scripts/vm-guest-tools.bat"
+          ],
+          "vmx_data": {
+            "memsize": "2048",
+            "numvcpus": "2",
+            "scsi0.virtualDev": "lsisas1068",
+            "ide1:1.deviceType": "cdrom-image",
+            "ide1:1.filename": "/Applications/VMware\\ Fusion.app/Contents/Library/isoimages/windows.iso",
+            "ide1:1.present": "TRUE",
+            "ide1:1.startConnected": "TRUE"
+          }
         }
     ],
     "post-processors": [
