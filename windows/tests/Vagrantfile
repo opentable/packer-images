@@ -1,0 +1,32 @@
+Vagrant.configure("2") do |config|
+  config.vm.box = "windows-2008-serverdatacenter-amd64"
+  config.vm.box_url = "../templates/windows-2008-serverdatacenter-amd64/windows-2008-serverdatacenter-amd64_#{ENV['PROVISIONER']}.box"
+
+  config.vm.communicator = "winrm"
+
+  config.winrm.username = "Administrator"
+  config.winrm.password = "vagrant"
+
+  config.vm.guest = :windows
+  config.windows.halt_timeout = 15
+
+  config.vm.network :forwarded_port, guest: 5985, host: 5985, auto_correct: true
+  config.vm.network :forwarded_port, guest: 3389, host: 3389, auto_correct: true
+
+  config.vm.provider :virtualbox do |v, override|
+    v.gui = true
+    v.customize ["modifyvm", :id, "--memory", 2048]
+    v.customize ["modifyvm", :id, "--cpus", 2]
+    v.customize ["setextradata", "global", "GUI/SuppressMessages", "all" ]
+  end
+
+  config.vm.provider :vmware_fusion do |v, override|
+    v.gui = true
+    v.vmx["memsize"] = "2048"
+    v.vmx["numvcpus"] = "1"
+    #v.vmx["ethernet0.virtualDev"] = "vmxnet3"
+    #v.vmx["RemoteDisplay.vnc.enabled"] = "false"
+    #v.vmx["RemoteDisplay.vnc.port"] = "5900"
+    #v.vmx["scsi0.virtualDev"] = "lsisas1068"
+  end
+end

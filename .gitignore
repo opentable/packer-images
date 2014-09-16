@@ -6,3 +6,7 @@
 *.box
 **/output-virtualbox-iso/
 **/output-vmware-iso/
+Gemfile.lock
+.bundle
+.vagrant
+**/vendor/
