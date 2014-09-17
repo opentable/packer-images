@@ -1,7 +1,7 @@
 #!/bin/bash
 
 TEMPLATE=$1
-PROVIDER=$2
+PROVISIONER=$2
 
 BOX=$TEMPLATE"_"$PROVISIONER".box"
 
