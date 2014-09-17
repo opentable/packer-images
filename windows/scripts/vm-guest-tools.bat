@@ -1,6 +1,10 @@
 set VIDEO=
 for /f "tokens=2 delims==" %%a in ('wmic path win32_videocontroller Where DeviceID="VideoController1" get Description /value^|find "="') do @set VIDEO=%%a
 
+if "%VIDEO%" equ "" (
+  for /f "tokens=2 delims==" %%a in ('wmic path win32_diskdrive get Caption /value^|find "="') do set VIDEO=%%a
+)
+
 Echo.%VIDEO% | find /i "VMware">Nul && (
   set PACKER_BUILDER_TYPE=vmware-iso
 ) || (
