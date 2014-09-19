@@ -100,69 +100,79 @@
       </AutoLogon>
       <FirstLogonCommands>
         <SynchronousCommand wcm:action="add">
-          <CommandLine>cmd.exe /c a:install-winrm.bat</CommandLine>
-          <Description>Install Win RM</Description>
+          <CommandLine>A:\winrm.bat</CommandLine>
+          <Description>winrm config</Description>
           <Order>1</Order>
         </SynchronousCommand>
         <SynchronousCommand wcm:action="add">
+          <CommandLine>A:\rdp.bat</CommandLine>
+          <Description>rdp config</Description>
+          <Order>2</Order>
+        </SynchronousCommand>
+        <SynchronousCommand wcm:action="add">
           <CommandLine>%SystemRoot%\System32\reg.exe ADD HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced\ /v HideFileExt /t REG_DWORD /d 0 /f</CommandLine>
-          <Order>16</Order>
+          <Order>3</Order>
           <Description>Show file extensions in Explorer</Description>
         </SynchronousCommand>
         <SynchronousCommand wcm:action="add">
           <CommandLine>%SystemRoot%\System32\reg.exe ADD HKCU\Console /v QuickEdit /t REG_DWORD /d 1 /f</CommandLine>
-          <Order>17</Order>
+          <Order>4</Order>
           <Description>Enable QuickEdit mode</Description>
         </SynchronousCommand>
         <SynchronousCommand wcm:action="add">
           <CommandLine>%SystemRoot%\System32\reg.exe ADD HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced\ /v Start_ShowRun /t REG_DWORD /d 1 /f</CommandLine>
-          <Order>18</Order>
+          <Order>5</Order>
           <Description>Show Run command in Start Menu</Description>
         </SynchronousCommand>
         <SynchronousCommand wcm:action="add">
           <CommandLine>%SystemRoot%\System32\reg.exe ADD HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced\ /v StartMenuAdminTools /t REG_DWORD /d 1 /f</CommandLine>
-          <Order>19</Order>
+          <Order>6</Order>
           <Description>Show Administrative Tools in Start Menu</Description>
         </SynchronousCommand>
         <SynchronousCommand wcm:action="add">
           <CommandLine>%SystemRoot%\System32\reg.exe ADD HKLM\SYSTEM\CurrentControlSet\Control\Power\ /v HibernateFileSizePercent /t REG_DWORD /d 0 /f</CommandLine>
-          <Order>20</Order>
+          <Order>7</Order>
           <Description>Zero Hibernation File</Description>
         </SynchronousCommand>
         <SynchronousCommand wcm:action="add">
           <CommandLine>%SystemRoot%\System32\reg.exe ADD HKLM\SYSTEM\CurrentControlSet\Control\Power\ /v HibernateEnabled /t REG_DWORD /d 0 /f</CommandLine>
-          <Order>21</Order>
+          <Order>8</Order>
           <Description>Disable Hibernation Mode</Description>
         </SynchronousCommand>
         <SynchronousCommand wcm:action="add">
           <CommandLine>cmd.exe /c start ocsetup MicrosoftWindowsPowerShell</CommandLine>
-          <Order>22</Order>
+          <Order>9</Order>
           <Description>Enable Powershell Feature</Description>
         </SynchronousCommand>
         <SynchronousCommand wcm:action="add">
           <CommandLine>%SystemRoot%\System32\reg.exe ADD HKLM\SOFTWARE\Microsoft\Powershell\1\ShellIds\Microsoft.Powershell /v ExecutionPolicy /t REG_SZ /d Unrestricted /f </CommandLine>
-          <Order>23</Order>
+          <Order>10</Order>
           <Description>Fix Powershell v1 execution policy</Description>
         </SynchronousCommand>
         <SynchronousCommand wcm:action="add">
           <CommandLine>%SystemRoot%\System32\reg.exe ADD HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce /v !Setup /t REG_SZ /d "%SystemRoot%\System32\cmd.exe /c a:\runonce.bat" /f </CommandLine>
-          <Order>24</Order>
+          <Order>11</Order>
           <Description>RunOnce</Description>
         </SynchronousCommand>
         <SynchronousCommand wcm:action="add">
           <CommandLine>%SystemRoot%\System32\cmd.exe /c "a:\ps.bat win2008"</CommandLine>
-          <Order>25</Order>
+          <Order>12</Order>
           <Description>Install Powershell v2</Description>
         </SynchronousCommand>
         <SynchronousCommand wcm:action="add">
-          <CommandLine>cmd.exe /c a:\install-cygwin-sshd.bat</CommandLine>
-          <Description>Install Cygwin</Description>
-          <Order>26</Order>
+          <CommandLine>cmd.exe /c a:\bitvisessh.bat</CommandLine>
+          <Description>Install Bitvise SSH Server</Description>
+          <Order>13</Order>
         </SynchronousCommand>
         <SynchronousCommand wcm:action="add">
-          <CommandLine>cmd.exe /c "mkdir C:\Users\vagrant"</CommandLine>
-          <Description>Ensuring vagrant home directory</Description>
-          <Order>27</Order>
+          <CommandLine>A:\vm-guest-tools.bat</CommandLine>
+          <Description>Install Guest Tools</Description>
+          <Order>14</Order>
+        </SynchronousCommand>
+        <SynchronousCommand wcm:action="add">
+          <CommandLine>cmd.exe /c wmic useraccount where "name='vagrant'" set PasswordExpires=FALSE</CommandLine>
+          <Order>15</Order>
+          <Description>Disable password expiration for vagrant user</Description>
         </SynchronousCommand>
       </FirstLogonCommands>
       <!--<ShowWindowsLive>false</ShowWindowsLive>-->

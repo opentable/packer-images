@@ -1,6 +1,9 @@
+p "box is #{ENV['TEMPLATE']}"
+p "box_url is ../templates/#{ENV['TEMPLATE']}/#{ENV['BOX']}"
+
 Vagrant.configure("2") do |config|
-  config.vm.box = "windows-2008-serverdatacenter-amd64"
-  config.vm.box_url = "../templates/windows-2008-serverdatacenter-amd64/windows-2008-serverdatacenter-amd64_#{ENV['PROVISIONER']}.box"
+  config.vm.box = "#{ENV['TEMPLATE']}"
+  config.vm.box_url = "../templates/#{ENV['TEMPLATE']}/#{ENV['BOX']}"
 
   config.vm.communicator = "winrm"
 
@@ -24,9 +27,5 @@ Vagrant.configure("2") do |config|
     v.gui = true
     v.vmx["memsize"] = "2048"
     v.vmx["numvcpus"] = "1"
-    #v.vmx["ethernet0.virtualDev"] = "vmxnet3"
-    #v.vmx["RemoteDisplay.vnc.enabled"] = "false"
-    #v.vmx["RemoteDisplay.vnc.port"] = "5900"
-    #v.vmx["scsi0.virtualDev"] = "lsisas1068"
   end
 end

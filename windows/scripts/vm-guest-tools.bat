@@ -18,17 +18,19 @@ goto :done
 :vmware
 
 cmd /c E:\setup.exe /S /v"/qn REBOOT=R\"
+ping 127.0.0.1 -n 50  >nul
 
 goto :done
 
 :virtualbox
-echo "Virtualbox install" >> C:\Windows\Temp\tools-install.txt
 
 :: There needs to be Oracle CA (Certificate Authority) certificates installed in order
 :: to prevent user intervention popups which will undermine a silent installation.
 cmd /c certutil -addstore -f "TrustedPublisher" A:\oracle-cert.cer
 
 cmd /c E:\VBoxWindowsAdditions.exe /S
+ping 127.0.0.1 -n 50  >nul
+
 goto :done
 
 :done

@@ -7,7 +7,9 @@ BOX=$TEMPLATE"_"$PROVISIONER".box"
 
 cd templates/$TEMPLATE
 
-vagrant box remove $TEMPLATE
+for B in `vagrant box list | grep windows | awk '{print $1}'`; do vagrant box remove --provider=virtualbox $B; done
+for B in `vagrant box list | grep windows | awk '{print $1}'`; do vagrant box remove --provider=vmware_desktop $B; done
+
 rm -f $BOX
 rm -rf output-$PROVISIONER-iso
 
@@ -26,6 +28,6 @@ else
   PROVIDER='virtualbox'
 fi
 
-PROVISIONER="$PROVISIONER" vagrant up --provider=$PROVIDER
+BOX="$BOX" TEMPLATE="$TEMPLATE" vagrant up --provider=$PROVIDER
 bundle exec rake spec
-vagrant destroy -f
+BOX="$BOX" TEMPLATE="$TEMPLATE" vagrant destroy -f
