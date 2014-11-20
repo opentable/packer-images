@@ -9,7 +9,7 @@
                         <CreatePartition wcm:action="add">
                             <Order>1</Order>
                             <Type>Primary</Type>
-                            <Size>60000</Size>
+                            <Size>62000</Size>
                         </CreatePartition>
                     </CreatePartitions>
                     <ModifyPartitions>
@@ -49,8 +49,8 @@
                     <InstallToAvailablePartition>false</InstallToAvailablePartition>
                     <InstallFrom>
                         <MetaData wcm:action="add">
-                            <Key>/IMAGE/NAME</Key>
-                            <Value>Windows Server 2012 Essentials</Value>
+                            <Key>/IMAGE/INDEX</Key>
+                            <Value>1</Value>
                         </MetaData>
                     </InstallFrom>
                 </OSImage>
