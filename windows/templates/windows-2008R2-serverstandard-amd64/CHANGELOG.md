@@ -1,3 +1,6 @@
+### 1.0.1 (2015-01-13)
+* fixed bug with vagrant user password expiry.
+
 ### 1.0.0 (2014-08-18)
 * Switched ssh provider to bitvise
 
