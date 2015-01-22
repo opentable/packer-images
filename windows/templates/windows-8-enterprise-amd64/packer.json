@@ -1,0 +1,73 @@
+{
+  "builders": [
+    {
+      "type": "virtualbox-iso",
+      "iso_url": "../../iso/en_windows_8_enterprise_x64_dvd_917522.iso",
+      "iso_checksum_type": "md5",
+      "iso_checksum": "27aa354b8088527ffcd32007b51b25bf",
+      "headless": false,
+      "boot_wait": "2m",
+      "ssh_username": "vagrant",
+      "ssh_password": "vagrant",
+      "ssh_wait_timeout": "4h",
+      "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
+      "guest_os_type": "Windows8_64",
+      "disk_size": 61440,
+      "floppy_files": [
+        "./Autounattend.xml",
+        "../../scripts/downloadFile.vbs",
+        "../../scripts/vagrant.pub",
+        "../../scripts/oracle-cert.cer",
+        "../../scripts/BvSshServer-Settings.wst",
+        "../../scripts/*.bat",
+        "../../scripts/*.ps1"
+      ],
+      "vboxmanage": [
+        ["modifyvm", "{{.Name}}", "--memory", "2048"],
+        ["modifyvm", "{{.Name}}", "--cpus", "2"],
+        ["storageattach", "{{.Name}}", "--storagectl", "IDE Controller", "--port", "1", "--device", "0", "--type", "dvddrive", "--medium", "/Applications/VirtualBox.app/Contents/MacOS/VBoxGuestAdditions.iso"]
+      ]
+    },
+    {
+      "type": "vmware-iso",
+      "iso_url": "../../iso/en_windows_8_enterprise_x64_dvd_917522.iso",
+      "iso_checksum_type": "md5",
+      "iso_checksum": "27aa354b8088527ffcd32007b51b25bf",
+      "headless": false,
+      "boot_wait": "2m",
+      "ssh_username": "vagrant",
+      "ssh_password": "vagrant",
+      "ssh_wait_timeout": "2h",
+      "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
+      "guest_os_type": "windows8-64",
+      "tools_upload_flavor": "windows",
+      "disk_size": 61440,
+      "floppy_files": [
+        "./Autounattend.xml",
+        "../../scripts/downloadFile.vbs",
+        "../../scripts/vagrant.pub",
+        "../../scripts/oracle-cert.cer",
+        "../../scripts/BvSshServer-Settings.wst",
+        "../../scripts/*.bat",
+        "../../scripts/*.ps1"
+      ],
+      "vmx_data": {
+        "memsize": "2048",
+        "numvcpus": "2",
+        "scsi0.virtualDev": "lsisas1068",
+        "ide1:1.deviceType": "cdrom-image",
+        "ide1:1.filename": "/Applications/VMware\\ Fusion.app/Contents/Library/isoimages/windows.iso",
+        "ide1:1.present": "TRUE",
+        "ide1:1.startConnected": "TRUE"
+      }
+    }
+  ],
+  "post-processors": [
+    {
+      "type": "vagrant",
+      "keep_input_artifact": false,
+      "output": "windows-8-enterprise-amd64-{{.Provider}}.box",
+      "vagrantfile_template": "vagrantfile-windows_8.template"
+    }
+  ]
+}

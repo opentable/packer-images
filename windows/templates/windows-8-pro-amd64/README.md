@@ -17,9 +17,7 @@ Software Pre-installed
 ----------------------
 The following software is installed and pre-configured:
 
-* Openssh (via Cygwin)
-* Git (via Cygwin)
-* Curl and Wget (via Cygwin)
+* Bitvise SSH
 * Guest Additions (provider specific)
 
 Preconfigured
