@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<unattend xmlns="urn:schemas-microsoft-com:unattend">
+  <settings pass="windowsPE">
+    <component name="Microsoft-Windows-Setup" processorArchitecture="x86" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      <DiskConfiguration>
+        <Disk wcm:action="add">
+          <CreatePartitions>
+            <CreatePartition wcm:action="add">
+               <Order>1</Order>
+               <Type>Primary</Type>
+               <Size>60000</Size>
+            </CreatePartition>
+          </CreatePartitions>
+          <ModifyPartitions>
+            <ModifyPartition wcm:action="add">
+              <Extend>false</Extend>
+              <Format>NTFS</Format>
+              <Letter>C</Letter>
+              <Order>1</Order>
+              <PartitionID>1</PartitionID>
+              <Label>Windows Vista</Label>
+            </ModifyPartition>
+          </ModifyPartitions>
+          <DiskID>0</DiskID>
+          <WillWipeDisk>true</WillWipeDisk>
+        </Disk>
+        <WillShowUI>OnError</WillShowUI>
+      </DiskConfiguration>
+      <UserData>
+        <ProductKey>
+          <Key>7T7F7-FDC76-WTGMF-7KQX2-CRCQC</Key>
+        </ProductKey>
+        <AcceptEula>true</AcceptEula>
+      </UserData>
+      <ImageInstall>
+        <OSImage>
+          <InstallTo>
+            <DiskID>0</DiskID>
+            <PartitionID>1</PartitionID>
+          </InstallTo>
+          <WillShowUI>OnError</WillShowUI>
+          <InstallToAvailablePartition>false</InstallToAvailablePartition>
+          <InstallFrom>
+            <MetaData wcm:action="add">
+              <Key>/IMAGE/NAME</Key>
+              <Value>Windows Vista BUSINESS</Value>
+            </MetaData>
+          </InstallFrom>
+        </OSImage>
+      </ImageInstall>
+    </component>
+    <component name="Microsoft-Windows-International-Core-WinPE" processorArchitecture="x86" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      <SetupUILanguage>
+        <UILanguage>en-us</UILanguage>
+      </SetupUILanguage>
+      <InputLocale>en-us</InputLocale>
+      <SystemLocale>en-us</SystemLocale>
+      <UILanguage>en-us</UILanguage>
+      <UserLocale>en-us</UserLocale>
+    </component>
+  </settings>
+  <settings pass="oobeSystem">
+    <component name="Microsoft-Windows-Shell-Setup" processorArchitecture="x86" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      <UserAccounts>
+        <AdministratorPassword>
+          <Value>vagrant</Value>
+          <PlainText>true</PlainText>
+        </AdministratorPassword>
+        <LocalAccounts>
+          <LocalAccount wcm:action="add">
+            <Password>
+              <Value>vagrant</Value>
+              <PlainText>true</PlainText>
+            </Password>
+            <Description>Vagrant User</Description>
+            <DisplayName>vagrant</DisplayName>
+            <Group>administrators</Group>
+            <Name>vagrant</Name>
+          </LocalAccount>
+        </LocalAccounts>
+      </UserAccounts>
+      <OOBE>
+        <HideEULAPage>true</HideEULAPage>
+        <NetworkLocation>Work</NetworkLocation>
+        <ProtectYourPC>1</ProtectYourPC>
+      </OOBE>
+      <AutoLogon>
+        <Password>
+          <Value>vagrant</Value>
+          <PlainText>true</PlainText>
+        </Password>
+        <Username>Administrator</Username>
+        <Enabled>true</Enabled>
+      </AutoLogon>
+      <FirstLogonCommands>
+        <SynchronousCommand wcm:action="add">
+          <CommandLine>%SystemRoot%\System32\cmd.exe /c "a:\ps.bat winVista_64"</CommandLine>
+          <Order>1</Order>
+          <Description>Install Powershell v2</Description>
+        </SynchronousCommand>
+        <SynchronousCommand wcm:action="add">
+          <CommandLine>%SystemRoot%\System32\reg.exe ADD HKLM\SOFTWARE\Microsoft\Powershell\1\ShellIds\Microsoft.Powershell /v ExecutionPolicy /t REG_SZ /d Unrestricted /f </CommandLine>
+          <Order>2</Order>
+          <Description>Fix Powershell v1 execution policy</Description>
+        </SynchronousCommand>
+        <SynchronousCommand wcm:action="add">
+          <CommandLine>%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe -Command "a:\set_work_network.ps1"</CommandLine>
+          <Order>4</Order>
+          <Description>Fix network adapters</Description>
+        </SynchronousCommand>
+        <SynchronousCommand wcm:action="add">
+          <CommandLine>%SystemRoot%\System32\cmd.exe /c winrm quickconfig -quiet</CommandLine>
+          <Description>winrm quickconfig -q</Description>
+          <Order>5</Order>
+        </SynchronousCommand>
+        <SynchronousCommand wcm:action="add">
+          <CommandLine>cmd.exe /c winrm quickconfig -transport:http -quiet</CommandLine>
+          <Description>winrm quickconfig -transport:http</Description>
+          <Order>6</Order>
+        </SynchronousCommand>
+        <SynchronousCommand wcm:action="add">
+          <CommandLine>cmd.exe /c winrm set winrm/config @{MaxTimeoutms="1800000"}</CommandLine>
+          <Description>Win RM MaxTimoutms</Description>
+          <Order>8</Order>
+        </SynchronousCommand>
+        <SynchronousCommand wcm:action="add">
+          <CommandLine>cmd.exe /c winrm set winrm/config/winrs @{MaxMemoryPerShellMB="300"}</CommandLine>
+          <Description>Win RM MaxMemoryPerShellMB</Description>
+          <Order>9</Order>
+        </SynchronousCommand>
+        <SynchronousCommand wcm:action="add">
+          <CommandLine>cmd.exe /c winrm set winrm/config/service @{AllowUnencrypted="true"}</CommandLine>
+          <Description>Win RM AllowUnencrypted</Description>
+          <Order>10</Order>
+        </SynchronousCommand>
+        <SynchronousCommand wcm:action="add">
+          <CommandLine>cmd.exe /c winrm set winrm/config/service/auth @{Basic="true"}</CommandLine>
+          <Description>Win RM auth Basic</Description>
+          <Order>11</Order>
+        </SynchronousCommand>
+        <SynchronousCommand wcm:action="add">
+          <CommandLine>cmd.exe /c winrm set winrm/config/client/auth @{Basic="true"}</CommandLine>
+          <Description>Win RM client auth Basic</Description>
+          <Order>12</Order>
+        </SynchronousCommand>
+        <SynchronousCommand wcm:action="add">
+          <CommandLine>cmd.exe /c winrm set winrm/config/listener?Address=*+Transport=HTTP @{Port="5985"} </CommandLine>
+          <Description>Win RM listener Address/Port</Description>
+          <Order>13</Order>
+        </SynchronousCommand>
+        <SynchronousCommand wcm:action="add">
+          <CommandLine>cmd.exe /c netsh advfirewall firewall set rule group="remote administration" new enable=yes </CommandLine>
+          <Description>Win RM adv firewall enable</Description>
+          <Order>14</Order>
+        </SynchronousCommand>
+        <SynchronousCommand wcm:action="add">
+          <CommandLine>cmd.exe /c netsh firewall add portopening TCP 5985 "Port 5985" </CommandLine>
+          <Description>Win RM port open</Description>
+          <Order>15</Order>
+        </SynchronousCommand>
+        <SynchronousCommand wcm:action="add">
+          <CommandLine>cmd.exe /c net stop winrm </CommandLine>
+          <Description>Stop Win RM Service </Description>
+          <Order>16</Order>
+        </SynchronousCommand>
+        <SynchronousCommand wcm:action="add">
+          <CommandLine>cmd.exe /c sc config winrm start= auto</CommandLine>
+          <Description>Win RM Autostart</Description>
+          <Order>17</Order>
+        </SynchronousCommand>
+        <SynchronousCommand wcm:action="add">
+          <CommandLine>cmd.exe /c net start winrm</CommandLine>
+          <Description>Start Win RM Service</Description>
+          <Order>18</Order>
+        </SynchronousCommand>
+        <SynchronousCommand wcm:action="add">
+          <CommandLine>%SystemRoot%\System32\reg.exe ADD HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced\ /v HideFileExt /t REG_DWORD /d 0 /f</CommandLine>
+          <Order>19</Order>
+          <Description>Show file extensions in Explorer</Description>
+        </SynchronousCommand>
+        <SynchronousCommand wcm:action="add">
+          <CommandLine>%SystemRoot%\System32\reg.exe ADD HKCU\Console /v QuickEdit /t REG_DWORD /d 1 /f</CommandLine>
+          <Order>20</Order>
+          <Description>Enable QuickEdit mode</Description>
+        </SynchronousCommand>
+        <SynchronousCommand wcm:action="add">
+          <CommandLine>%SystemRoot%\System32\reg.exe ADD HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced\ /v Start_ShowRun /t REG_DWORD /d 1 /f</CommandLine>
+          <Order>21</Order>
+          <Description>Show Run command in Start Menu</Description>
+        </SynchronousCommand>
+        <SynchronousCommand wcm:action="add">
+          <CommandLine>%SystemRoot%\System32\reg.exe ADD HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced\ /v StartMenuAdminTools /t REG_DWORD /d 1 /f</CommandLine>
+          <Order>22</Order>
+          <Description>Show Administrative Tools in Start Menu</Description>
+        </SynchronousCommand>
+        <SynchronousCommand wcm:action="add">
+          <CommandLine>%SystemRoot%\System32\reg.exe ADD HKLM\SYSTEM\CurrentControlSet\Control\Power\ /v HibernateFileSizePercent /t REG_DWORD /d 0 /f</CommandLine>
+          <Order>23</Order>
+          <Description>Zero Hibernation File</Description>
+        </SynchronousCommand>
+        <SynchronousCommand wcm:action="add">
+          <CommandLine>%SystemRoot%\System32\reg.exe ADD HKLM\SYSTEM\CurrentControlSet\Control\Power\ /v HibernateEnabled /t REG_DWORD /d 0 /f</CommandLine>
+          <Order>24</Order>
+          <Description>Disable Hibernation Mode</Description>
+        </SynchronousCommand>
+        <SynchronousCommand wcm:action="add">
+          <CommandLine>%SystemRoot%\System32\reg.exe ADD HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce /v !Setup /t REG_SZ /d "%SystemRoot%\System32\cmd.exe /c a:\runonce.bat" /f </CommandLine>
+          <Order>25</Order>
+          <Description>RunOnce</Description>
+        </SynchronousCommand>
+        <SynchronousCommand wcm:action="add">
+          <CommandLine>cmd.exe /c a:\install-cygwin-sshd.bat</CommandLine>
+          <Description>Install Cygwin</Description>
+          <Order>26</Order>
+        </SynchronousCommand>
+        <SynchronousCommand wcm:action="add">
+          <CommandLine>%SystemRoot%\System32\reg.exe ADD "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\NetworkList\NewNetworks" /v NetworkList /t REG_MULTI_SZ /d "" /f</CommandLine>
+          <Description>Set Network Location</Description>
+          <Order>27</Order>
+        </SynchronousCommand>
+        <SynchronousCommand wcm:action="add">
+          <CommandLine>%SystemRoot%\System32\reg.exe ADD "HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\System" /v EnableLUA /t REG_DWORD /d 0 /f</CommandLine>
+          <Description>Disable UAC</Description>
+          <Order>28</Order>
+        </SynchronousCommand>
+        <SynchronousCommand wcm:action="add">
+          <CommandLine>A:\vm-guest-tools.bat</CommandLine>
+          <Description>Install Guest Tools</Description>
+          <Order>29</Order>
+        </SynchronousCommand>
+      </FirstLogonCommands>
+    </component>
+  </settings>
+  <settings pass="specialize">
+    <component name="Microsoft-Windows-Shell-Setup" processorArchitecture="x86" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS">
+      <OEMInformation>
+        <HelpCustomized>false</HelpCustomized>
+      </OEMInformation>
+      <!-- Rename computer here. -->
+      <ComputerName>win-vista</ComputerName>
+      <TimeZone>Pacific Standard Time</TimeZone>
+      <RegisteredOwner></RegisteredOwner>
+    </component>
+  </settings>
+  <cpi:offlineImage cpi:source="wim:d:/sources/install.wim#Windows Vista BUSINESS" xmlns:cpi="urn:schemas-microsoft-com:cpi" />
+</unattend>
