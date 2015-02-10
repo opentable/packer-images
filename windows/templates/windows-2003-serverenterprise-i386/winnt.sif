@@ -1,0 +1,50 @@
+;SetupMgrTag
+[Data]
+    AutoPartition=1
+    MsDosInitiated="0"
+    UnattendedInstall="Yes"
+    AutomaticUpdates=yes
+
+[Unattended]
+    UnattendMode=FullUnattended
+    OemSkipEula=Yes
+    OemPreinstall=No
+    TargetPath=\WINDOWS
+    Repartition=Yes
+    UnattendSwitch="yes"
+    WaitForReboot="No"
+
+[Display]
+    AutoConfirm=1
+
+[GuiUnattended]
+    AdminPassword="vagrant"
+    EncryptedAdminPassword=No
+    AutoLogon=Yes
+    AutoLogonCount=4
+    OEMSkipRegional=1
+    TimeZone=110
+    OemSkipWelcome=1
+
+[UserData]
+    ProductKey=VDH9M-WVB68-88MFQ-WC893-WHT4G
+    FullName="Vagrant"
+    OrgName=""
+    ComputerName=*
+
+[RegionalSettings]
+    LanguageGroup=1
+    Language=00000809
+
+[LicenseFilePrintData]
+    AutoMode=PerServer
+    AutoUsers=5
+
+[Identification]
+    JoinWorkgroup=WORKGROUP
+
+[Networking]
+    InstallDefaultComponents=Yes
+
+[GuiRunOnce]
+    "%SystemRoot%\System32\cmd.exe /c a:\ps.bat win2003"
