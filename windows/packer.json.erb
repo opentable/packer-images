@@ -1,0 +1,89 @@
+{
+  "builders": [
+    {
+      "type": "virtualbox-iso",
+      "iso_url": "../../iso/<%= @iso_name %>",
+      "iso_checksum_type": "md5",
+      "iso_checksum": "<%= @iso_checksum %>",
+      "headless": false,
+      "boot_wait": "2m",
+      "communicator": "winrm",
+      "winrm_username": "Administrator",
+      "winrm_password": "vagrant",
+      "winrm_port": 5985,
+      "winrm_timeout": "2h",
+      "ssh_host_port_min": "5985",
+      "ssh_host_port_max": "5985",
+      "guest_additions_mode": "disable",
+      "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
+<% if @arch.eql?("amd64") -%>
+      "guest_os_type": "Windows<%= @version %>_64",
+<% else -%>
+      "guest_os_type": "Windows<%= @version %>",
+<% end -%>
+      "disk_size": 61440,
+      "floppy_files": [
+        "./Autounattend.xml",
+        "../../scripts/oracle-cert.cer",
+        "../../scripts/downloadFile.vbs",
+        "../../scripts/*.bat",
+        "../../scripts/*.ps1"
+      ],
+      "vboxmanage": [
+        ["modifyvm", "{{.Name}}", "--memory", "2048"],
+        ["modifyvm", "{{.Name}}", "--cpus", "2"],
+        ["storageattach", "{{.Name}}", "--storagectl", "IDE Controller", "--port", "1", "--device", "0", "--type", "dvddrive", "--medium", "/Applications/VirtualBox.app/Contents/MacOS/VBoxGuestAdditions.iso"]
+      ]
+    },
+    {
+      "type": "vmware-iso",
+      "iso_url": "../../iso/<%= @iso_name %>",
+      "iso_checksum_type": "md5",
+      "iso_checksum": "<%= @iso_checksum %>",
+      "headless": false,
+      "boot_wait": "2m",
+      "communicator": "winrm",
+      "winrm_username": "Administrator",
+      "winrm_password": "vagrant",
+      "winrm_port": 5985,
+      "winrm_timeout": "2h",
+      "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
+<% if @arch.eql?("amd64") -%>
+      "guest_os_type": "windows<%= @version %>-64",
+<% else -%>
+      "guest_os_type": "windows<%= @version %>",
+<% end -%>
+      "disk_size": 61440,
+      "tools_upload_flavor": "windows",
+      "tools_upload_path": "c:/Windows/Temp/windows.iso",
+      "floppy_files": [
+        "./Autounattend.xml",
+        "../../scripts/downloadFile.vbs",
+        "../../scripts/*.bat"
+      ],
+      "vmx_data": {
+        "memsize": "2048",
+        "numvcpus": "2",
+        "scsi0.virtualDev": "lsisas1068"
+      }
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "windows-shell",
+      "scripts": [
+        "../../scripts/vm-guest-tools.bat",
+        "../../scripts/rdp.bat",
+        "../../scripts/ps.bat"
+      ]
+    }
+  ],
+  "post-processors": [
+    {
+      "type": "vagrant",
+      "keep_input_artifact": false,
+      "output": "<%= @output %>_{{.Provider}}.box",
+      "vagrantfile_template": "vagrantfile.template"
+    }
+  ]
+}

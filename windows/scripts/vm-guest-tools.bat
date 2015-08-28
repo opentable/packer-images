@@ -1,24 +1,30 @@
-set VIDEO=
-for /f "tokens=2 delims==" %%a in ('wmic path win32_videocontroller Where DeviceID="VideoController1" get Description /value^|find "="') do @set VIDEO=%%a
-
-if "%VIDEO%" equ "" (
-  for /f "tokens=2 delims==" %%a in ('wmic path win32_diskdrive get Caption /value^|find "="') do set VIDEO=%%a
+if not exist "C:\Windows\Temp\7z920-x64.msi" (
+    powershell -Command "(New-Object System.Net.WebClient).DownloadFile('http://www.7-zip.org/a/7z920-x64.msi', 'C:\Windows\Temp\7z920-x64.msi')" <NUL
 )
-
-Echo.%VIDEO% | find /i "VMware">Nul && (
-  set PACKER_BUILDER_TYPE=vmware-iso
-) || (
-  set PACKER_BUILDER_TYPE=virtualbox-iso
-)
+msiexec /qb /i C:\Windows\Temp\7z920-x64.msi
 
 if "%PACKER_BUILDER_TYPE%" equ "vmware-iso" goto :vmware
 if "%PACKER_BUILDER_TYPE%" equ "virtualbox-iso" goto :virtualbox
+if "%PACKER_BUILDER_TYPE%" equ "parallels-iso" goto :parallels
 goto :done
 
 :vmware
 
-cmd /c E:\setup.exe /S /v"/qn REBOOT=R\"
-ping 127.0.0.1 -n 50  >nul
+if exist "C:\Users\vagrant\windows.iso" (
+    move /Y C:\Users\vagrant\windows.iso C:\Windows\Temp
+)
+
+if not exist "C:\Windows\Temp\windows.iso" (
+    powershell -Command "(New-Object System.Net.WebClient).DownloadFile('http://softwareupdate.vmware.com/cds/vmw-desktop/ws/11.1.2/2780323/windows/packages/tools-windows-9.9.3.exe.tar', 'C:\Windows\Temp\vmware-tools.exe.tar')" <NUL
+    cmd /c ""C:\Program Files\7-Zip\7z.exe" x C:\Windows\Temp\vmware-tools.exe.tar -oC:\Windows\Temp"
+    FOR /r "C:\Windows\Temp" %%a in (tools-windows-*.exe) DO REN "%%~a" "tools-windows.exe"
+    cmd /c C:\Windows\Temp\tools-windows
+    move /Y "C:\Program Files (x86)\VMware\tools-windows\windows.iso" C:\Windows\Temp
+    rd /S /Q "C:\Program Files (x86)\VMWare"
+)
+
+cmd /c ""C:\Program Files\7-Zip\7z.exe" x "C:\Windows\Temp\windows.iso" -oC:\Windows\Temp\VMWare"
+cmd /c C:\Windows\Temp\VMWare\setup.exe /S /v"/qn REBOOT=R\"
 
 goto :done
 
@@ -28,9 +34,17 @@ goto :done
 :: to prevent user intervention popups which will undermine a silent installation.
 cmd /c certutil -addstore -f "TrustedPublisher" A:\oracle-cert.cer
 
-cmd /c E:\VBoxWindowsAdditions.exe /S
-ping 127.0.0.1 -n 50  >nul
-
+E:\VBoxWindowsAdditions.exe /S
+timeout /t 60 /nobreak  1>NUL
 goto :done
 
+:parallels
+if exist "C:\Users\vagrant\prl-tools-win.iso" (
+	move /Y C:\Users\vagrant\prl-tools-win.iso C:\Windows\Temp
+	cmd /C "C:\Program Files\7-Zip\7z.exe" x C:\Windows\Temp\prl-tools-win.iso -oC:\Windows\Temp\parallels
+	cmd /C C:\Windows\Temp\parallels\PTAgent.exe /install_silent
+	rd /S /Q "c:\Windows\Temp\parallels"
+)
+
 :done
+msiexec /qb /x C:\Windows\Temp\7z920-x64.msi
