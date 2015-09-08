@@ -62,7 +62,13 @@ end
 
 task :clean do
   FileUtils.rm_rf("windows/images")
-  sh %{for B in `vagrant box list | grep windows | awk '{print $1}'`; do vagrant box remove $B; done}
+  boxes = `vagrant box list | grep windows`.split("\n")
+  boxes.each do |box|
+    one = box.split(" ")[0]
+    two = box.split(" ")[1]
+    two = two[1..(two.length-2)]
+    sh %{vagrant box remove --provider=#{two} #{one}}
+  end
 end
 
 desc "packer build"
@@ -81,4 +87,4 @@ task :packer_build do
 end
 
 desc "Build all images"
-task :build => [:config, :packer_build]
+task :build => [:clean, :config, :packer_build]
