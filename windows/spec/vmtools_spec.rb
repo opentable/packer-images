@@ -13,7 +13,7 @@ end
 
 
 describe "virtualbox", :unless => is_vmware? do
-  context package('Oracle VM VirtualBox Guest Additions 4.3.28') do
+  context package('Oracle VM VirtualBox Guest Additions 5.0.2') do
     it { should be_installed }
   end
 end
