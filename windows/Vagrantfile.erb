@@ -1,4 +1,10 @@
 Vagrant.configure("2") do |config|
   config.vm.box = "<%= @box %>"
   config.vm.box_url = "<%= @box_url %>"
+
+  config.vm.provider "<%= @provider %>" do |v|
+    v.gui = true
+  end
+
+  config.vm.synced_folder ".", "/vagrant", disabled: true
 end

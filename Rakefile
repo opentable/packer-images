@@ -34,8 +34,11 @@ end
 def test_image(conf, provider)
   output = "windows-#{conf["version"]}-#{conf["edition"]}-#{conf["arch"]}"
   image_dir = "windows/images/#{output}"
+  vagrant_provider = provider.eql?("vmware") ? "vmware_fusion" : "virtualbox"
+
   @box = output
   @box_url = "file://#{output}_#{provider}.box"
+  @provider = vagrant_provider
 
   vf = ERB.new(File.open("windows/Vagrantfile.erb", "rb").read, nil, "-")
   File.write("#{image_dir}/Vagrantfile", vf.result)
@@ -43,7 +46,6 @@ def test_image(conf, provider)
   FileUtils.cp_r("windows/spec", "#{image_dir}/spec")
 
   Dir.chdir(image_dir){
-    vagrant_provider = provider.eql?("vmware") ? "vmware_fusion" : "virtualbox"
     sh %{vagrant up --provider=#{vagrant_provider}}
     sh %{rspec spec}
     sh %{vagrant destroy --force}
